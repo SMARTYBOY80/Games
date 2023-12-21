@@ -14,6 +14,14 @@ def pickCard():
     cards.remove(card)
     return card
 
+
+def welcome():
+    print(f"""Welcome to the thrilling world of Blackjack!
+           Get ready to experience the excitement of strategic gameplay and the rush of the cards.
+           Whether you're a seasoned pro or a newcomer, we're delighted to have you at the table.
+           Good luck, and may the cards be in your favor!\n Press Enter to continue""")
+    input("")
+
 def isAceOrFace(card, total):            
     if card in ['K', 'Q', 'J']:
         return '10', 0
@@ -67,7 +75,7 @@ def ai(aiCard):
 def player():
     playerTotal = 0
 
-    playerCard = 'A'
+    playerCard = pickCard()
     playerCard2 = pickCard()
     #checks if ace is 1 or 11 or if its a face card
     playerCard, canChange = isAceOrFace(playerCard, playerTotal)
@@ -101,20 +109,20 @@ def compare(playerTotal, aiTotal):
         print("Tie!")
 
 
-def welcome():
-    print(f"""Welcome to the thrilling world of Blackjack!
-           Get ready to experience the excitement of strategic gameplay and the rush of the cards.
-           Whether you're a seasoned pro or a newcomer, we're delighted to have you at the table.
-           Good luck, and may the cards be in your favor!\n Press Enter to continue""")
-    input("")
-
-
 #main
-        
+
+playerContinue = True
+
 welcome()
 
-aiCard = pickCard()
-print(f'ai has a: {aiCard}')
-playerTotal = player()
-aiTotal = ai(aiCard)
-compare(playerTotal, aiTotal)
+while playerContinue ==True:
+    aiCard = pickCard()
+    print(f'ai has a: {aiCard}')
+    playerTotal = player()
+    aiTotal = ai(aiCard)
+    compare(playerTotal, aiTotal)
+
+    if input("Would you like to play again? (y/n) ") != "y":
+        playerContinue = False
+
+print("Thanks for playing Blackjack!")
